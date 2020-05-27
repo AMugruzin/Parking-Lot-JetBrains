@@ -10,7 +10,7 @@ class Parking {
     var parkState = Parkstate.NOTCREATED
     var parking = Array<String>(0) { "" }
     var parkSlotsNumber = 0
-    var command = ""
+    var command = "placeholder"
 
     fun waitForInput() {
         command = scanner.next()
