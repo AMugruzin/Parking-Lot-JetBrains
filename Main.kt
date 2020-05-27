@@ -1,13 +1,13 @@
 import java.util.*
 val scanner = Scanner(System.`in`)
 
-enum class ParkingLot {
+enum class Parkstate {
     NOTCREATED,
     CREATED;
 }
 
-class Park {
-    var parkState = ParkingLot.NOTCREATED
+class Parking {
+    var parkState = Parkstate.NOTCREATED
     var parking = Array<String>(0) { "" }
     var parkSlotsNumber = 0
     var command = ""
@@ -32,17 +32,17 @@ class Park {
     fun create() {
         parkSlotsNumber = scanner.nextInt()
         parking = Array<String>(parkSlotsNumber) { "" }
-        parkState = ParkingLot.CREATED
+        parkState = Parkstate.CREATED
         println("Created a parking lot with $parkSlotsNumber spots.")
         operate()
     }
 
     fun park() {
-        if (parkState == ParkingLot.NOTCREATED) {
+        if (parkState == Parkstate.NOTCREATED) {
             val mess = scanner.nextLine()
             println("Sorry, a parking lot has not been created.")
         }
-        if (parkState != ParkingLot.NOTCREATED) {
+        if (parkState != Parkstate.NOTCREATED) {
             var counter = 0
             var carsCounter = 0
             val serialNumber = scanner.next().toString()
@@ -64,8 +64,8 @@ class Park {
     }
 
     fun status() {
-        if (parkState == ParkingLot.NOTCREATED) println("Sorry, a parking lot has not been created.")
-        if (parkState != ParkingLot.NOTCREATED) {
+        if (parkState == Parkstate.NOTCREATED) println("Sorry, a parking lot has not been created.")
+        if (parkState != Parkstate.NOTCREATED) {
             var emptimessCounter = 0
             for (i in parking.indices) {
                 if (parking[i].isNotEmpty()) {
@@ -82,8 +82,8 @@ class Park {
     }
 
     fun leave() {
-        if (parkState == ParkingLot.NOTCREATED) println("Sorry, a parking lot has not been created.")
-        if (parkState != ParkingLot.NOTCREATED) {
+        if (parkState == Parkstate.NOTCREATED) println("Sorry, a parking lot has not been created.")
+        if (parkState != Parkstate.NOTCREATED) {
             val carSLot = scanner.nextInt()
             val indx = carSLot - 1
             if (parking[indx].isNotEmpty()) {
@@ -101,6 +101,6 @@ class Park {
 }
 
 fun main () {
-    val myParking = Park()
+    val myParking = Parking()
     myParking.operate()
 }
