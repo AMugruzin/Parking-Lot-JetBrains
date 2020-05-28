@@ -1,13 +1,12 @@
 import java.util.*
 val scanner = Scanner(System.`in`)
 
-enum class Parkstate {
-    NOTCREATED,
-    CREATED;
+enum class ParkingStatus {
+    NOTCREATED, CREATED
 }
 
 class Parking {
-    var parkState = Parkstate.NOTCREATED
+    var parkState = ParkingStatus.NOTCREATED
     var parking = Array<String>(0) { "" }
     var parkSlotsNumber = 0
     var command = "placeholder"
@@ -32,17 +31,17 @@ class Parking {
     fun create() {
         parkSlotsNumber = scanner.nextInt()
         parking = Array<String>(parkSlotsNumber) { "" }
-        parkState = Parkstate.CREATED
+        parkState = ParkingStatus.CREATED
         println("Created a parking lot with $parkSlotsNumber spots.")
         operate()
     }
 
     fun park() {
-        if (parkState == Parkstate.NOTCREATED) {
+        if (parkState == ParkingStatus.NOTCREATED) {
             val mess = scanner.nextLine()
             println("Sorry, a parking lot has not been created.")
         }
-        if (parkState != Parkstate.NOTCREATED) {
+        if (parkState != ParkingStatus.NOTCREATED) {
             var counter = 0
             var carsCounter = 0
             val serialNumber = scanner.next().toString()
@@ -64,8 +63,8 @@ class Parking {
     }
 
     fun status() {
-        if (parkState == Parkstate.NOTCREATED) println("Sorry, a parking lot has not been created.")
-        if (parkState != Parkstate.NOTCREATED) {
+        if (parkState == ParkingStatus.NOTCREATED) println("Sorry, a parking lot has not been created.")
+        if (parkState != ParkingStatus.NOTCREATED) {
             var emptimessCounter = 0
             for (i in parking.indices) {
                 if (parking[i].isNotEmpty()) {
@@ -82,8 +81,8 @@ class Parking {
     }
 
     fun leave() {
-        if (parkState == Parkstate.NOTCREATED) println("Sorry, a parking lot has not been created.")
-        if (parkState != Parkstate.NOTCREATED) {
+        if (parkState == ParkingStatus.NOTCREATED) println("Sorry, a parking lot has not been created.")
+        if (parkState != ParkingStatus.NOTCREATED) {
             val carSLot = scanner.nextInt()
             val indx = carSLot - 1
             if (parking[indx].isNotEmpty()) {
