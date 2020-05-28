@@ -94,10 +94,11 @@ class Parking {
         operate()
     }
 
-    fun wrongCommand() {
-        println("Wrong command. Useful command are : create , park , leave , exit .")
+    /*   fun wrongCommand() {
+        println("Wrong command. Useful commands are : create , park , leave , exit .")
         operate()
-    }
+    }   
+    */
 }
 
 fun main () {
