@@ -1,4 +1,4 @@
 # ParkingLotForHS
 Parking Lot project for Hyperskill/JetBrains Academy
 
-stage 4/5
+stage 5/5
