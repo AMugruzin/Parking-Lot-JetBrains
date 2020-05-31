@@ -32,7 +32,7 @@ class Parking {
         parkSlotsNumber = scanner.nextInt()
         parking = Array<ParkingLotSpot>(parkSlotsNumber) { ParkingLotSpot("", "", 0, false) }
         parkState = ParkingStatus.CREATED
-        println(createParkFirst)
+        println("Created a parking lot with $parkSlotsNumber spots.")
         operate()
     }
     fun park() {
