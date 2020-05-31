@@ -6,7 +6,7 @@ enum class ParkingStatus {
 }
 class Parking {
     var parkState = ParkingStatus.NOTCREATED
-    var parking = Array<ParkingLotSpot>(0) { ParkingLotSpot("", "", 0, false) }
+    var parking = Array(0) { ParkingLotSpot("", "", 0, false) }
     var parkSlotsNumber = 0
     var command = "placeholder"
     val createParkFirst = "Sorry, a parking lot has not been created."
@@ -21,44 +21,39 @@ class Parking {
                 "park" -> park()
                 "leave" -> leave()
                 "status" -> status()
-                "reg_by_color" -> regByColor()
-                "spot_by_color" -> spotByColor()
-                "spot_by_reg" -> spotByReg()
+                "reg_by_color" -> regByColor()          // search regId by color
+                "spot_by_color" -> spotByColor()        // search parkSpot by color
+                "spot_by_reg" -> spotByReg()            // search parkSpot by regId
                 else -> operate()
             }
         }
     }
     fun create() {
         parkSlotsNumber = scanner.nextInt()
-        parking = Array<ParkingLotSpot>(parkSlotsNumber) { ParkingLotSpot("", "", 0, false) }
+        parking = Array(parkSlotsNumber) { ParkingLotSpot("", "", 0, false) }
         parkState = ParkingStatus.CREATED
         println("Created a parking lot with $parkSlotsNumber spots.")
         operate()
     }
     fun park() {
-        if (parkState == ParkingStatus.NOTCREATED) {
-            val mess = scanner.nextLine()
-            println(createParkFirst)
-        }
         if (parkState != ParkingStatus.NOTCREATED) {
             var counter = 0
             var carsCounter = 0
             val serialNumber = scanner.next().toString().toUpperCase()
             val color = scanner.next().toLowerCase().capitalize()
-            val id = "$serialNumber $color"
             loopToPark@ for (i in parking.indices) {
                 if (!parking[i].occupied) {
                     counter = i + 1
-                    val carInSlot: ParkingLotSpot = ParkingLotSpot(serialNumber, color, counter, true)
+                    val carInSlot = ParkingLotSpot(serialNumber, color, counter, true)
                     parking[i] = carInSlot
                     println("$color car parked in spot $counter.")
                     break@loopToPark
                 } else if (parking[i].occupied) {
                     carsCounter++
-                    if (carsCounter == parkSlotsNumber) println("Sorry, the parking lot is full.")
+                    if (carsCounter == parkSlotsNumber) println("Sorry, the parking lot is full.")
                 }
             }
-        }
+        } else println(createParkFirst)
         operate()
     }
     fun status() {
@@ -77,28 +72,20 @@ class Parking {
         operate()
     }
     fun regByColor() {
-       if (parkState == ParkingStatus.NOTCREATED) {
-           val mess = scanner.nextLine()
-           println(createParkFirst)
-       }
-       if (parkState != ParkingStatus.NOTCREATED) {
-           val colorToSearch = scanner.next().toLowerCase().capitalize()
-           var toShow = ""
-           for (i in parking.indices) {
-               if (parking[i].color.contains(colorToSearch)) {
-                   toShow += "${parking[i].plate}, "
-               }
-           }
-           if (toShow.isEmpty()) println("No cars with color ${colorToSearch.toUpperCase()} were found.")
-           else println(toShow.trim().removeSuffix(","))
-       }
-    operate()
-   }
+        if (parkState != ParkingStatus.NOTCREATED) {
+            val colorToSearch = scanner.next().toLowerCase().capitalize()
+            var toShow = ""
+            for (i in parking.indices) {
+                if (parking[i].color.contains(colorToSearch)) {
+                    toShow += "${parking[i].plate}, "
+                }
+            }
+            if (toShow.isEmpty()) println("No cars with color ${colorToSearch.toUpperCase()} were found.")
+            else println(toShow.trim().removeSuffix(","))
+        } else println(createParkFirst)
+        operate()
+    }
     fun spotByColor() {
-        if (parkState == ParkingStatus.NOTCREATED) {
-            val mess = scanner.nextLine()
-            println(createParkFirst)
-        }
         if (parkState != ParkingStatus.NOTCREATED) {
             val colorToSearch = scanner.next().toLowerCase().capitalize()
             var toShow = ""
@@ -109,14 +96,10 @@ class Parking {
             }
             if (toShow.isEmpty()) println("No cars with color ${colorToSearch.toUpperCase()} were found.")
             else println(toShow.trim().removeSuffix(","))
-        }
+        } else println(createParkFirst)
         operate()
     }
     fun spotByReg() {
-        if (parkState == ParkingStatus.NOTCREATED) {
-            val mess = scanner.nextLine()
-            println(createParkFirst)
-        }
         if (parkState != ParkingStatus.NOTCREATED) {
             val plateToSearch = scanner.next().toUpperCase()
             var toShow = ""
@@ -127,7 +110,7 @@ class Parking {
             }
             if (toShow.isEmpty()) println("No cars with registration number $plateToSearch were found.")
             else println(toShow.trim().removeSuffix(","))
-        }
+        } else println(createParkFirst)
         operate()
     }
     fun leave() {
@@ -147,3 +130,5 @@ fun main () {
     val myParking = Parking()
     myParking.operate()
 }
+
+// park 01-AUTO-RED red 02-AUTO-RED red 03-AUTO-RED red
